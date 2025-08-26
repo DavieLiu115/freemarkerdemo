@@ -1,32 +1,22 @@
-package ${packageName}.service.impl;
+package entity
 
-import lombok.RequiredArgsConstructor;
+import (
+	"${projectName}/module_system/db"
+)
 
-import org.springframework.stereotype.Service;
+// ${className} ${businessName!""}
+// author ${author}
+// date ${createTime}
+type ${className} struct {
 
-<#if mpService>
-import top.continew.starter.data.mp.service.impl.ServiceImpl;
-<#else>
-import top.continew.starter.extension.crud.service.BaseServiceImpl;
-import ${packageName}.model.req.${classNamePrefix}Req;
-import ${packageName}.model.resp.${classNamePrefix}DetailResp;
-import ${packageName}.model.resp.${classNamePrefix}Resp;
-import ${packageName}.model.query.${classNamePrefix}Query;
+<#if fieldConfigs?? >
+<#list fieldConfigs as field>
+	${field.fieldName?cap_first} ${field.fieldType} `gorm:"<#if field.isPrimary>primary_key;</#if>type:${field.columnType};<#if field.isNotNull>not</#if> null;" json:"${field.fieldName}"`  <#if field.comment?? >// ${field.comment!""}</#if>
+</#list>
 </#if>
-import ${packageName}.mapper.${classNamePrefix}Mapper;
-import ${packageName}.model.entity.${classNamePrefix}DO;
-import ${packageName}.service.${classNamePrefix}Service;
-import lombok.extern.slf4j.Slf4j;
+}
 
-/**
- * ${businessName}业务实现
- *
- * @author ${author}
- * @since ${datetime}
- */
-@Slf4j
-@Service
-@RequiredArgsConstructor
-public class ${className}ServiceImpl extends <#if mpService>ServiceImpl<${classNamePrefix}Mapper, ${classNamePrefix}DO> implements ${classNamePrefix}Service<#else>BaseServiceImpl<${classNamePrefix}Mapper, ${classNamePrefix}DO, ${classNamePrefix}Resp, ${classNamePrefix}DetailResp, ${classNamePrefix}Query, ${classNamePrefix}Req> implements ${classNamePrefix}Service </#if>{
-	private final ${classNamePrefix}Mapper ${apiName}Mapper;
+// TableName 解决gorm表明映射
+func (${className}) TableName() string {
+	return "${tableName}"
 }

@@ -3,7 +3,6 @@
     "classNamePrefix": "User",
     "businessName": "用户表",
     "moduleName": "module_admin",
-    "generateMark": false,
     "configPath": "\/Users\/lww\/Desktop\/continew-go\/module_config\/config.dev.yaml",
     "className": "User",
     "hasDictField": false,
@@ -12,7 +11,7 @@
         "createUser",
         "createTime"
     ],
-    "apiModuleName": "tenant",
+    "apiModuleName": "user",
     "detailRespExcludeFields": [
         "id",
         "createUser",
@@ -24,7 +23,27 @@
     "tableName": "sys_user",
     "modulePath": "\/Users\/lww\/Desktop\/continew-go\/module_admin",
     "router": true,
-    "datetime": "2025-08-26 17:19:38",
+    "datetime": "2025-08-26 19:05:56",
+    "pkColumn": {
+        "isNotNull": true,
+        "isRequired": false,
+        "formType": "INPUT_NUMBER",
+        "fieldName": "id",
+        "isUnique": false,
+        "tableName": "sys_user",
+        "queryType": "EQ",
+        "fieldSort": "1",
+        "columnType": "bigint",
+        "showInForm": true,
+        "showInQuery": true,
+        "dictCode": "",
+        "showInList": false,
+        "isPrimary": true,
+        "comment": "ID",
+        "id": "1",
+        "fieldType": "int",
+        "columnName": "id"
+    },
     "hasRequiredField": true,
     "packageName": null,
     "override": true,
@@ -47,7 +66,7 @@
             "isPrimary": true,
             "comment": "ID",
             "id": "1",
-            "fieldType": "Long",
+            "fieldType": "int",
             "columnName": "id"
         },
         {
@@ -59,7 +78,7 @@
             "tableName": "sys_user",
             "queryType": "LIKE",
             "fieldSort": "2",
-            "columnType": "varchar",
+            "columnType": "varchar(64)",
             "showInForm": true,
             "showInQuery": true,
             "dictCode": "",
@@ -68,7 +87,7 @@
             "columnSize": 64,
             "comment": "用户名",
             "id": "2",
-            "fieldType": "String",
+            "fieldType": "string",
             "columnName": "username"
         },
         {
@@ -80,7 +99,7 @@
             "tableName": "sys_user",
             "queryType": "LIKE",
             "fieldSort": "3",
-            "columnType": "varchar",
+            "columnType": "varchar(30)",
             "showInForm": true,
             "showInQuery": true,
             "dictCode": "",
@@ -89,7 +108,7 @@
             "columnSize": 30,
             "comment": "昵称",
             "id": "3",
-            "fieldType": "String",
+            "fieldType": "string",
             "columnName": "nickname"
         },
         {
@@ -101,7 +120,7 @@
             "tableName": "sys_user",
             "queryType": "LIKE",
             "fieldSort": "4",
-            "columnType": "varchar",
+            "columnType": "varchar(255)",
             "showInForm": true,
             "showInQuery": true,
             "dictCode": "",
@@ -110,7 +129,7 @@
             "columnSize": 255,
             "comment": "密码",
             "id": "4",
-            "fieldType": "String",
+            "fieldType": "string",
             "columnName": "password"
         },
         {
@@ -122,7 +141,7 @@
             "tableName": "sys_user",
             "queryType": "EQ",
             "fieldSort": "5",
-            "columnType": "tinyint",
+            "columnType": "tinyint unsigned",
             "showInForm": true,
             "showInQuery": true,
             "dictCode": "",
@@ -130,7 +149,7 @@
             "isPrimary": false,
             "comment": "性别（0：未知；1：男；2：女）",
             "id": "5",
-            "fieldType": "Integer",
+            "fieldType": "int",
             "columnName": "gender"
         },
         {
@@ -142,7 +161,7 @@
             "tableName": "sys_user",
             "queryType": "LIKE",
             "fieldSort": "6",
-            "columnType": "varchar",
+            "columnType": "varchar(255)",
             "showInForm": true,
             "showInQuery": true,
             "dictCode": "",
@@ -151,7 +170,7 @@
             "columnSize": 255,
             "comment": "邮箱",
             "id": "6",
-            "fieldType": "String",
+            "fieldType": "string",
             "columnName": "email"
         },
         {
@@ -163,7 +182,7 @@
             "tableName": "sys_user",
             "queryType": "LIKE",
             "fieldSort": "7",
-            "columnType": "varchar",
+            "columnType": "varchar(255)",
             "showInForm": true,
             "showInQuery": true,
             "dictCode": "",
@@ -172,7 +191,7 @@
             "columnSize": 255,
             "comment": "手机号码",
             "id": "7",
-            "fieldType": "String",
+            "fieldType": "string",
             "columnName": "phone"
         },
         {
@@ -192,7 +211,7 @@
             "isPrimary": false,
             "comment": "头像",
             "id": "8",
-            "fieldType": "String",
+            "fieldType": "string",
             "columnName": "avatar"
         },
         {
@@ -204,7 +223,7 @@
             "tableName": "sys_user",
             "queryType": "LIKE",
             "fieldSort": "9",
-            "columnType": "varchar",
+            "columnType": "varchar(200)",
             "showInForm": true,
             "showInQuery": true,
             "dictCode": "",
@@ -213,7 +232,7 @@
             "columnSize": 200,
             "comment": "描述",
             "id": "9",
-            "fieldType": "String",
+            "fieldType": "string",
             "columnName": "description"
         },
         {
@@ -225,7 +244,7 @@
             "tableName": "sys_user",
             "queryType": "EQ",
             "fieldSort": "10",
-            "columnType": "tinyint",
+            "columnType": "tinyint unsigned",
             "showInForm": true,
             "showInQuery": true,
             "dictCode": "",
@@ -233,7 +252,7 @@
             "isPrimary": false,
             "comment": "状态（1：启用；2：禁用）",
             "id": "10",
-            "fieldType": "Integer",
+            "fieldType": "int",
             "columnName": "status"
         },
         {
@@ -245,7 +264,7 @@
             "tableName": "sys_user",
             "queryType": "EQ",
             "fieldSort": "11",
-            "columnType": "bit",
+            "columnType": "bit(1)",
             "showInForm": true,
             "showInQuery": true,
             "dictCode": "",
@@ -253,7 +272,7 @@
             "isPrimary": false,
             "comment": "是否为系统内置数据",
             "id": "11",
-            "fieldType": "Boolean",
+            "fieldType": "db.BoolBit",
             "columnName": "is_system"
         },
         {
@@ -273,7 +292,7 @@
             "isPrimary": false,
             "comment": "最后一次修改密码时间",
             "id": "12",
-            "fieldType": "LocalDateTime",
+            "fieldType": "db.Time",
             "columnName": "pwd_reset_time"
         },
         {
@@ -293,7 +312,7 @@
             "isPrimary": false,
             "comment": "部门ID",
             "id": "13",
-            "fieldType": "Long",
+            "fieldType": "int",
             "columnName": "dept_id"
         },
         {
@@ -313,7 +332,7 @@
             "isPrimary": false,
             "comment": "创建人",
             "id": "14",
-            "fieldType": "Long",
+            "fieldType": "int",
             "columnName": "create_user"
         },
         {
@@ -333,7 +352,7 @@
             "isPrimary": false,
             "comment": "创建时间",
             "id": "15",
-            "fieldType": "LocalDateTime",
+            "fieldType": "db.Time",
             "columnName": "create_time"
         },
         {
@@ -353,7 +372,7 @@
             "isPrimary": false,
             "comment": "修改人",
             "id": "16",
-            "fieldType": "Long",
+            "fieldType": "int",
             "columnName": "update_user"
         },
         {
@@ -373,7 +392,7 @@
             "isPrimary": false,
             "comment": "修改时间",
             "id": "17",
-            "fieldType": "LocalDateTime",
+            "fieldType": "db.Time",
             "columnName": "update_time"
         },
         {
@@ -393,21 +412,21 @@
             "isPrimary": false,
             "comment": "租户ID",
             "id": "18",
-            "fieldType": "Long",
+            "fieldType": "int",
             "columnName": "tenant_id"
         }
     ],
     "dictCodes": [],
     "projectPath": "\/Users\/lww\/Desktop\/continew-go",
     "author": "lww",
-    "vueModule": "tenant",
+    "vueModule": "user",
     "dbType": "MySQL",
     "tableComment": "用户表",
-    "updateTime": "2025-08-26 17:19:38",
+    "updateTime": "2025-08-26 19:05:56",
     "vuePath": "\/Users\/lww\/Desktop\/git\/continew-admin-ui",
     "hasBigDecimalField": false,
     "tablePrefix": "sys_",
-    "createTime": "2025-08-26 17:19:38",
+    "createTime": "2025-08-26 19:05:56",
     "service": true,
     "doExcludeFields": [
         "id",
