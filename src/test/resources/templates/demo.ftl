@@ -10,6 +10,9 @@ import (
 // date ${createTime}
 type ${className}Req struct {
 	<#list fieldConfigs as field>
+	<#if !field.showInForm>
+	<#continue >
+	</#if>
 	${field.fieldName?cap_first} ${field.fieldType} // ${field.comment!""}
 </#list>
 }
@@ -17,6 +20,9 @@ type ${className}Req struct {
 func Convert2${className}(req *${className}Req) entity.${className} {
 	return entity.${className}{
 	<#list fieldConfigs as field>
+		<#if !field.showInForm>
+		<#continue >
+		</#if>
 		<#if field.fieldType?starts_with("db.")>
 		${field.fieldName?cap_first} : ${field.fieldType}(req.${field.fieldName?cap_first}),
 		<#else>
@@ -29,6 +35,9 @@ func Convert2${className}(req *${className}Req) entity.${className} {
 func Convert2${className}Req(user *entity.${className}) ${className}Req {
 	return ${className}Req{
 	<#list fieldConfigs as field>
+		<#if !field.showInForm>
+		<#continue >
+		</#if>
 		<#if field.fieldType?starts_with("db.")>
 		${field.fieldName?cap_first} : ${field.fieldType}(${apiName}.${field.fieldName?cap_first}),
 		<#else>

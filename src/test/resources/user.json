@@ -405,7 +405,7 @@
             "queryType": "EQ",
             "fieldSort": "18",
             "columnType": "bigint",
-            "showInForm": true,
+            "showInForm": false,
             "showInQuery": true,
             "dictCode": "",
             "showInList": true,
