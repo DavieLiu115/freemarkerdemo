@@ -91,7 +91,7 @@
             "columnName": "username"
         },
         {
-            "isNotNull": true,
+            "isNotNull": false,
             "isRequired": true,
             "formType": "INPUT",
             "fieldName": "nickname",

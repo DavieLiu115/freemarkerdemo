@@ -1,22 +1,40 @@
-package entity
+package req
 
 import (
+	"${projectName}/module_admin/entity"
 	"${projectName}/module_system/db"
 )
 
-// ${className} ${businessName!""}
+// ${className} ${businessName!""} Req对象
 // author ${author}
 // date ${createTime}
-type ${className} struct {
-
-<#if fieldConfigs?? >
-<#list fieldConfigs as field>
-	${field.fieldName?cap_first} ${field.fieldType} `gorm:"<#if field.isPrimary>primary_key;</#if>type:${field.columnType};<#if field.isNotNull>not</#if> null;" json:"${field.fieldName}"`  <#if field.comment?? >// ${field.comment!""}</#if>
+type ${className}Req struct {
+	<#list fieldConfigs as field>
+	${field.fieldName?cap_first} ${field.fieldType} // ${field.comment!""}
 </#list>
-</#if>
 }
 
-// TableName 解决gorm表明映射
-func (${className}) TableName() string {
-	return "${tableName}"
+func Convert2${className}(req *${className}Req) entity.${className} {
+	return entity.${className}{
+	<#list fieldConfigs as field>
+		<#if field.fieldType?starts_with("db.")>
+		${field.fieldName?cap_first} : ${field.fieldType}(req.${field.fieldName?cap_first}),
+		<#else>
+		${field.fieldName?cap_first} : req.${field.fieldName?cap_first},
+		</#if>
+	</#list>
+	}
+}
+
+func Convert2${className}Req(user *entity.${className}) ${className}Req {
+	return ${className}Req{
+	<#list fieldConfigs as field>
+		<#if field.fieldType?starts_with("db.")>
+		${field.fieldName?cap_first} : ${field.fieldType}(${apiName}.${field.fieldName?cap_first}),
+		<#else>
+		${field.fieldName?cap_first} : ${apiName}.${field.fieldName?cap_first},
+		</#if>
+	</#list>
+	}
+
 }
