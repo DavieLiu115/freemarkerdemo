@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import freemarker.template.TemplateHashModel;
 import freemarker.template.Version;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -45,16 +46,22 @@ public class AppTest extends TestCase {
 	}
 
 	public void testdo() throws Exception {
+		BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
+		TemplateHashModel staticModels = wrapper.getStaticModels();
+
+
+
 		Configuration cfg = new Configuration(new Version("2.3.28"));
 		cfg.setSharedVariable("templates", BeansWrapper.getDefaultInstance().getStaticModels());
 		cfg.setClassForTemplateLoading(AppTest.class, "/templates");
-		try (Writer out = new OutputStreamWriter(new FileOutputStream("demo.java"),
+		try (Writer out = new OutputStreamWriter(new FileOutputStream("demo.go"),
 				StandardCharsets.UTF_8)) {
 			String templatePath = "demo.ftl";
 			Template template = cfg.getTemplate(templatePath);
-			URL resource = AppTest.class.getClassLoader().getResource("user.json");
+			URL resource = AppTest.class.getClassLoader().getResource("mamiho.json");
 			try (InputStream inputStream = resource.openStream()) {
 				JSONObject jsonObject = JSONObject.parseObject(new String(inputStream.readAllBytes()));
+				jsonObject.put("statics", staticModels);
 				template.process(jsonObject, out);
 			} catch (Exception ignored) {
 			}

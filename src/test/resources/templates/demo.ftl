@@ -1,49 +1,40 @@
-package req
+<#if dbType == "MySQL">
+SET @parentId = ${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c};
+-- ${businessName}管理菜单
+INSERT INTO `sys_menu`
+    (`id`, `title`, `parent_id`, `type`, `path`, `name`, `component`, `redirect`, `icon`, `is_external`, `is_cache`, `is_hidden`, `permission`, `sort`, `status`, `create_user`, `create_time`)
+VALUES
+    (@parentId, '${businessName}管理', 1000, 2, '/${apiModuleName}/${apiName}', '${classNamePrefix}', '${apiModuleName}/${apiName}/index', NULL, NULL, b'0', b'0', b'0', NULL, 1, 1, 1, NOW());
 
-import (
-	"${projectName}/module_admin/entity"
-	"${projectName}/module_system/db"
-)
+-- ${businessName}管理按钮
+INSERT INTO `sys_menu`
+    (`id`, `title`, `parent_id`, `type`, `permission`, `sort`, `status`, `create_user`, `create_time`)
+VALUES
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '列表', @parentId, 3, '${apiModuleName}:${apiName}:list', 1, 1, 1, NOW()),
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '详情', @parentId, 3, '${apiModuleName}:${apiName}:get', 2, 1, 1, NOW()),
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '新增', @parentId, 3, '${apiModuleName}:${apiName}:create', 3, 1, 1, NOW()),
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '修改', @parentId, 3, '${apiModuleName}:${apiName}:update', 4, 1, 1, NOW()),
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '删除', @parentId, 3, '${apiModuleName}:${apiName}:delete', 5, 1, 1, NOW()),
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '导出', @parentId, 3, '${apiModuleName}:${apiName}:export', 6, 1, 1, NOW());
+</#if>
 
-// ${className} ${businessName!""} Req对象
-// author ${author}
-// date ${createTime}
-type ${className}Req struct {
-	<#list fieldConfigs as field>
-	<#if !field.showInForm>
-	<#continue >
-	</#if>
-	${field.fieldName?cap_first} ${field.fieldType} // ${field.comment!""}
-</#list>
-}
+<#if dbType == "PostgreSQL">
+DECLARE sys_menu_id_seq INT8 := ${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c};
 
-func Convert2${className}(req *${className}Req) entity.${className} {
-	return entity.${className}{
-	<#list fieldConfigs as field>
-		<#if !field.showInForm>
-		<#continue >
-		</#if>
-		<#if field.fieldType?starts_with("db.")>
-		${field.fieldName?cap_first} : ${field.fieldType}(req.${field.fieldName?cap_first}),
-		<#else>
-		${field.fieldName?cap_first} : req.${field.fieldName?cap_first},
-		</#if>
-	</#list>
-	}
-}
+-- ${businessName}管理菜单
+INSERT INTO "sys_menu"
+    ("id", "title", "parent_id", "type", "path", "name", "component", "redirect", "icon", "is_external", "is_cache", "is_hidden", "permission", "sort", "status", "create_user", "create_time")
+VALUES
+    (sys_menu_id_seq, '${businessName}管理', 1000, 2, '/${apiModuleName}/${apiName}', '${classNamePrefix}', '${apiModuleName}/${apiName}/index', NULL, NULL, false, false, false, NULL, 1, 1, 1, NOW());
 
-func Convert2${className}Req(user *entity.${className}) ${className}Req {
-	return ${className}Req{
-	<#list fieldConfigs as field>
-		<#if !field.showInForm>
-		<#continue >
-		</#if>
-		<#if field.fieldType?starts_with("db.")>
-		${field.fieldName?cap_first} : ${field.fieldType}(${apiName}.${field.fieldName?cap_first}),
-		<#else>
-		${field.fieldName?cap_first} : ${apiName}.${field.fieldName?cap_first},
-		</#if>
-	</#list>
-	}
-
-}
+-- ${businessName}管理按钮
+INSERT INTO "sys_menu"
+    ("id", "title", "parent_id", "type", "permission", "sort", "status", "create_user", "create_time")
+VALUES
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '列表', sys_menu_id_seq, 3, '${apiModuleName}:${apiName}:list', 1, 1, 1, NOW()),
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '详情', sys_menu_id_seq, 3, '${apiModuleName}:${apiName}:get', 2, 1, 1, NOW()),
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '新增', sys_menu_id_seq, 3, '${apiModuleName}:${apiName}:create', 3, 1, 1, NOW()),
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '修改', sys_menu_id_seq, 3, '${apiModuleName}:${apiName}:update', 4, 1, 1, NOW()),
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '删除', sys_menu_id_seq, 3, '${apiModuleName}:${apiName}:delete', 5, 1, 1, NOW()),
+    (${statics["cn.hutool.core.util.IdUtil"].getSnowflakeNextId()?c}, '导出', sys_menu_id_seq, 3, '${apiModuleName}:${apiName}:export', 6, 1, 1, NOW());
+</#if>
